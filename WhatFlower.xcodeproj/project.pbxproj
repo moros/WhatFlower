@@ -12,6 +12,7 @@
 		CD51F5D9209F60190060152B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD51F5D7209F60190060152B /* Main.storyboard */; };
 		CD51F5DB209F601B0060152B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD51F5DA209F601B0060152B /* Assets.xcassets */; };
 		CD51F5DE209F601B0060152B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD51F5DC209F601B0060152B /* LaunchScreen.storyboard */; };
+		CD51F5E820A7AFC10060152B /* FlowerClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = CD51F5E720A7AFC10060152B /* FlowerClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		CD51F5DA209F601B0060152B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD51F5DD209F601B0060152B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD51F5DF209F601B0060152B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CD51F5E720A7AFC10060152B /* FlowerClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FlowerClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				CD51F5DA209F601B0060152B /* Assets.xcassets */,
 				CD51F5DC209F601B0060152B /* LaunchScreen.storyboard */,
 				CD51F5DF209F601B0060152B /* Info.plist */,
+				CD51F5E720A7AFC10060152B /* FlowerClassifier.mlmodel */,
 			);
 			path = WhatFlower;
 			sourceTree = "<group>";
@@ -135,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD51F5E820A7AFC10060152B /* FlowerClassifier.mlmodel in Sources */,
 				CD51F5D6209F60190060152B /* ViewController.swift in Sources */,
 				CD51F5D4209F60190060152B /* AppDelegate.swift in Sources */,
 			);
