@@ -9,12 +9,16 @@
 import UIKit
 import CoreML
 import Vision
+import Alamofire
+import SwiftyJSON
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var label: UILabel!
     
     let imagePicker = UIImagePickerController()
+    let wikipediaURl = "https://en.wikipedia.org/w/api.php"
     
     override func viewDidLoad()
     {
@@ -48,8 +52,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         let request = VNCoreMLRequest(model: model) { (request, error) in
-            let classification = request.results?.first as? VNClassificationObservation
-            self.navigationItem.title = classification?.identifier.capitalized
+            guard let classification = request.results?.first as? VNClassificationObservation else {
+                fatalError("could not classify image.")
+            }
+            
+            self.navigationItem.title = classification.identifier.capitalized
+            self.searchWikipedia(title: classification.identifier) { (extract) in
+                self.label.text = extract
+            }
         }
         
         let handler = VNImageRequestHandler(ciImage: convertedImage)
@@ -58,6 +68,39 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         catch {
             print(error)
+        }
+    }
+    
+    func searchWikipedia(title: String, completion: @escaping (String) -> Void)
+    {
+        let parameters : [String:String] = [
+            "format" : "json",
+            "action" : "query",
+            "prop" : "extracts",
+            "exintro" : "",
+            "explaintext" : "",
+            "titles" : title,
+            "indexpageids" : "",
+            "redirects" : "1",
+        ]
+        
+        Alamofire.request(wikipediaURl, method: .get, parameters: parameters).responseJSON { response in
+            if !response.result.isSuccess {
+                return
+            }
+            
+            guard let value = response.result.value else {
+                print("Error could not get value.")
+                return
+            }
+            
+            let json = JSON(value)
+            let pageId = json["query"]["pageids"][0].string!
+            guard let extract = json["query"]["pages"][pageId]["extract"].string else {
+                fatalError("could not get extract from json.")
+            }
+            
+            completion(extract)
         }
     }
     

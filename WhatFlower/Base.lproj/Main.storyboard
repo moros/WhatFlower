@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,15 +20,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mlk-5P-q3a">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="375"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Mlk-5P-q3a" secondAttribute="height" multiplier="1:1" id="N27-cT-b5o"/>
+                                </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="aoW-Wx-og0">
+                                <rect key="frame" x="16" y="447" width="343" height="200"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HSe-aN-yMJ"/>
-                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="TMF-9F-ZfD"/>
-                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="d5N-kQ-iVU"/>
-                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="o9u-Gq-kuW"/>
+                            <constraint firstItem="aoW-Wx-og0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="CNS-zm-8Wu"/>
+                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Lyw-xM-KX7"/>
+                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SNC-wZ-pfW"/>
+                            <constraint firstItem="aoW-Wx-og0" firstAttribute="top" secondItem="Mlk-5P-q3a" secondAttribute="bottom" constant="8" id="bkp-JW-PWG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aoW-Wx-og0" secondAttribute="trailing" constant="16" id="nlf-x7-kKL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="aoW-Wx-og0" secondAttribute="bottom" constant="20" id="qzo-P6-OAf"/>
+                            <constraint firstItem="Mlk-5P-q3a" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vUQ-z5-g3m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -40,6 +53,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="Mlk-5P-q3a" id="sGr-c8-AXc"/>
+                        <outlet property="label" destination="aoW-Wx-og0" id="kv8-1u-w23"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
