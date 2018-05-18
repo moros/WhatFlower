@@ -11,6 +11,7 @@ import CoreML
 import Vision
 import Alamofire
 import SwiftyJSON
+import SDWebImage
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
@@ -35,7 +36,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             return
         }
         
-        imageView.image = image
+        //imageView.image = image
         imagePicker.dismiss(animated: true, completion: nil)
         
         detect(flowerImage: image)
@@ -57,8 +58,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             
             self.navigationItem.title = classification.identifier.capitalized
-            self.searchWikipedia(title: classification.identifier) { (extract) in
+            self.searchWikipedia(title: classification.identifier) { (extract, imageSource) in
                 self.label.text = extract
+                self.imageView.sd_setImage(with: URL(string: imageSource), completed: nil)
             }
         }
         
@@ -71,17 +73,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
-    func searchWikipedia(title: String, completion: @escaping (String) -> Void)
+    func searchWikipedia(title: String, completion: @escaping (String, String) -> Void)
     {
         let parameters : [String:String] = [
             "format" : "json",
             "action" : "query",
-            "prop" : "extracts",
+            "prop" : "extracts|pageimages",
             "exintro" : "",
             "explaintext" : "",
             "titles" : title,
             "indexpageids" : "",
             "redirects" : "1",
+            "pithumbsize" : "500"
         ]
         
         Alamofire.request(wikipediaURl, method: .get, parameters: parameters).responseJSON { response in
@@ -96,11 +99,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             
             let json = JSON(value)
             let pageId = json["query"]["pageids"][0].string!
+            
             guard let extract = json["query"]["pages"][pageId]["extract"].string else {
                 fatalError("could not get extract from json.")
             }
             
-            completion(extract)
+            guard let imageUrlSource = json["query"]["pages"][pageId]["thumbnail"]["source"].string else {
+                fatalError("could not get image source from json.")
+            }
+            
+            completion(extract, imageUrlSource)
         }
     }
     
